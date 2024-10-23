@@ -31,6 +31,7 @@ class OrderCurrencyUSDRule implements Rule, DataAwareRule
         if ($value == 'USD') {
             return $this->price * 31 < 2000;
         }
+        return true;
     }
 
     /**

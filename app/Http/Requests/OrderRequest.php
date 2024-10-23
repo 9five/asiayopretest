@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use App\Rules\OrderCurrencyUSDRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class OrderRequest extends FormRequest
 {
@@ -25,18 +27,20 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'integer|required|unique:id',
+            'id' => 'required|string|unique:order,oid',
             'name' => [
-                'string|required|',
+                'required',
+                'string',
                 'regex:/^[a-zA-Z\s]*$/',
-                'not_regex:/\b[a-z]{1,19}/g',
+                'not_regex:/\b[a-z]{1,19}/',
             ],
             'address' => 'required',
-            'address.city' => 'string|required',
-            'address.district' => 'string|required',
-            'address.street' => 'string|required',
-            'price' => 'numeric|required|max:2000',
-            'currency' => ['required|in:TWD,USD', new OrderCurrencyUSDRule],
+            'address.city' => 'required|string',
+            'address.district' => 'required|string',
+            'address.street' => 'required|string',
+            'price' => 'required|integer|between:1,2000',
+            'price' => 'required|integer',
+            'currency' => ['required', 'in:TWD,USD', new OrderCurrencyUSDRule],
         ];
     }
 
@@ -51,9 +55,15 @@ class OrderRequest extends FormRequest
             'district.required' => ['District field is required'],
             'street.required' => ['Street field is required'],
             'price.required' => ['Price field is required'],
-            'price.max' => ['Price is over 2000'],
+            'price.between' => ['Price is over 2000'],
             'currency.required' => ['Currency field is required'],
             'currency.in' => ['Currency format is wrong']
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $message = $validator->errors();
+        throw new HttpResponseException(response()->json(['status' => false, 'error' => $message->first()], 400));
     }
 }
