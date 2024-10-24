@@ -16,7 +16,7 @@ SELECT orders.bnb_id, bnbs.name AS bnb_name, orders.amount AS may_amount FROM or
     首先會先把重點查詢以及作為foreign key的column加上index，然後會使用EXPLAIN `query` 去檢示效果，如type未如理想，會先考慮能否使用EXPLAIN所提供的possible_key作查詢的key，之後會檢查WHERE CONDITION有沒有能夠優化的地方（如使用UNION替代OR，盡量使用`>=,<=`而非`>,<`）。
 ## API實作測驗
 ### 題目一
-`
+
 請用 Laravel 實作一個提供訂單格式檢查與轉換的 API
    *此應用程式將有一支 endpoint 為 POST /api/orders 的 API 作為輸入點
    *此 API 將以以下固定的 JSON 格式輸入，並請使用 Laravel 的 FormRequest，若未使
@@ -28,5 +28,5 @@ SELECT orders.bnb_id, bnbs.name AS bnb_name, orders.amount AS may_amount FROM or
    *以下所有情境皆需附上單元測試，覆蓋成功與失敗之案例。
    *請使用 docker 包裝您的環境。若未使用 docker 或 docker-compose 不予給分
    *實作結果需以 GitHub 呈現。若未使用不予給分
-`
+
 
