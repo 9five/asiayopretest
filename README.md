@@ -17,6 +17,7 @@ SELECT orders.bnb_id, bnbs.name AS bnb_name, orders.amount AS may_amount FROM or
 ## API實作測驗
 ### 題目一
 
+`
 請用 Laravel 實作一個提供訂單格式檢查與轉換的 API
 
    * 此應用程式將有一支 endpoint 為 POST /api/orders 的 API 作為輸入點
@@ -35,5 +36,18 @@ SELECT orders.bnb_id, bnbs.name AS bnb_name, orders.amount AS may_amount FROM or
    * 請使用 docker 包裝您的環境。若未使用 docker 或 docker-compose 不予給分
 
    * 實作結果需以 GitHub 呈現。若未使用不予給分
+`
 
+**Answer:**
 
+此專案使用了laravel作主要web service架構，並使用laradock作環境建構。如要敫動專案需先安裝`php, composer, docker`
+
+啟動專案指令：
+
+   cd ~/asiayopretest/laradock
+   docker-compose up -d nginx mysql phpmyadmin
+
+如要運行test，請遵從以下指令：
+
+   docker-compose exec workspace bash
+   php artisan test
