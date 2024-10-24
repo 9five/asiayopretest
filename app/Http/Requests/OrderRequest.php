@@ -38,26 +38,25 @@ class OrderRequest extends FormRequest
             'address.city' => 'required|string',
             'address.district' => 'required|string',
             'address.street' => 'required|string',
-            'price' => 'required|integer|between:1,2000',
-            'price' => 'required|integer',
+            'price' => 'required|integer|max:2000',
             'currency' => ['required', 'in:TWD,USD', new OrderCurrencyUSDRule],
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
-            'id.required' => ['ID field is required'],
-            'name.required' => ['Name field is required'],
-            'name.regex' => ['Name contains non-English characters'],
-            'name.not_regex' => ['Name is not capitalized'],
-            'city.required' => ['City field is required'],
-            'district.required' => ['District field is required'],
-            'street.required' => ['Street field is required'],
-            'price.required' => ['Price field is required'],
-            'price.between' => ['Price is over 2000'],
-            'currency.required' => ['Currency field is required'],
-            'currency.in' => ['Currency format is wrong']
+            'id.required' => 'ID field is required',
+            'name.required' => 'Name field is required',
+            'name.regex' => 'Name contains non-English characters',
+            'name.not_regex' => 'Name is not capitalized',
+            'city.required' => 'City field is required',
+            'district.required' => 'District field is required',
+            'street.required' => 'Street field is required',
+            'price.required' => 'Price field is required',
+            'price.max' => 'Price is over 2000',
+            'currency.required' => 'Currency field is required',
+            'currency.in' => 'Currency format is wrong'
         ];
     }
 
